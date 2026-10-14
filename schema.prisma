@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ActivationCode {
+  id          String    @id @default(cuid())
+  codeHash    String    @unique
+  codePrefix  String
+  label       String?
+  status      CodeStatus @default(ACTIVE)
+  maxUses     Int       @default(1)
+  uses        Int       @default(0)
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+  revokedAt   DateTime?
+  activations Activation[]
+  @@index([status, expiresAt])
+}
+
+model Activation {
+  id        String         @id @default(cuid())
+  codeId    String
+  code      ActivationCode @relation(fields: [codeId], references: [id], onDelete: Cascade)
+  subject   String
+  createdAt DateTime       @default(now())
+  @@unique([codeId, subject])
+  @@index([subject])
+}
+
+enum CodeStatus {
+  ACTIVE
+  REVOKED
+}

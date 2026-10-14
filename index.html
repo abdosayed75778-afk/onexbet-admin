@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#10151d">
+  <title>XB Admin — إدارة أكواد التفعيل</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="top"><div class="brand"><span class="mark">XB</span><div><h1>XB Admin</h1><p>إدارة أكواد التفعيل</p></div></div><button id="logout" class="ghost hidden">تسجيل الخروج</button></header>
+    <section id="loginView" class="panel login">
+      <h2>تسجيل دخول المسؤول</h2><p class="muted">لوحة إدارة خاصة بالمشرفين المعتمدين.</p>
+      <form id="loginForm"><label>البريد الإلكتروني<input name="email" type="email" autocomplete="username" required></label><label>كلمة المرور<input name="password" type="password" autocomplete="current-password" required></label><button class="primary" type="submit">دخول آمن</button><p id="loginError" class="error"></p></form>
+    </section>
+    <section id="appView" class="hidden">
+      <div class="welcome"><div><p class="eyebrow">لوحة التحكم</p><h2>أهلًا بك، المسؤول</h2></div><span class="live"><i></i> اتصال بالخادم</span></div>
+      <div class="stats"><article class="stat"><span>كل الأكواد</span><strong id="total">—</strong></article><article class="stat"><span>نشطة</span><strong id="active">—</strong></article><article class="stat"><span>ملغاة</span><strong id="revoked">—</strong></article><article class="stat"><span>مرات التفعيل</span><strong id="activations">—</strong></article></div>
+      <section class="panel"><div class="sectionhead"><div><h2>إنشاء كود جديد</h2><p class="muted">يُخزّن الكود على هيئة بصمة آمنة، ويظهر كاملًا عند إنشائه فقط.</p></div></div>
+        <form id="createForm" class="createform"><label>وصف اختياري<input name="label" maxlength="80" placeholder="مثال: اشتراك تجريبي"></label><label>عدد مرات الاستخدام<input name="maxUses" type="number" min="1" max="10000" value="1" required></label><label>تاريخ الانتهاء (اختياري)<input name="expiresAt" type="datetime-local"></label><button class="primary" type="submit">＋ إنشاء الكود</button></form><div id="newCode" class="newcode hidden"><span>احفظ الكود الآن — لن يظهر كاملًا مرة أخرى</span><code id="newCodeValue"></code><button id="copyCode" class="ghost">نسخ الكود</button></div><p id="createError" class="error"></p>
+      </section>
+      <section class="panel"><div class="sectionhead"><div><h2>الأكواد</h2><p class="muted">راجع الاستخدام والصلاحية وألغِ الأكواد عند الحاجة.</p></div><button id="refresh" class="ghost">تحديث</button></div><div class="tablewrap"><table><thead><tr><th>الكود</th><th>الوصف</th><th>الحالة</th><th>الاستخدام</th><th>الانتهاء</th><th>إجراء</th></tr></thead><tbody id="codesBody"><tr><td colspan="6">جارٍ التحميل…</td></tr></tbody></table></div><div id="pagination" class="pagination"></div></section>
+      <p id="appError" class="error"></p>
+    </section>
+    <footer>XB Admin · استخدم HTTPS عند النشر · لا تشارك مفاتيح الخادم</footer>
+  </main>
+  <script src="/app.js" defer></script>
+</body></html>
